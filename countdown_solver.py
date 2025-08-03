@@ -64,7 +64,7 @@ def countdown_solver(numbers: list, target: int):
         print_node_sequence(node[2])
     print(f"\nOperation calls: {operation_counter}")
     print(f"Search time: {elapsed:.3f} seconds")
-    print(f"Cached values: {operate_node.cache_info().currsize}")
+    print(f"Cached operations: {operate_node.cache_info().currsize}")
     print(f"Cache hits: {operate_node.cache_info().hits}")
     for op, count in cache_hit_counter.most_common(1):
         nums, operator_symbol = op

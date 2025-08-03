@@ -23,7 +23,7 @@ print(f"\nNumber of large numbers selected: {n_large}")
 numbers = generate_numbers(n_large)
 target = np.random.randint(100, 1000)  # Random target number between 100 and 999
 
-print(f"Numbers selected: {numbers}")
+print(f"Numbers drawn: {numbers}")
 print(f"Target number: {target}")
 
 # Search for a solution
