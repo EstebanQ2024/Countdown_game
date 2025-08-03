@@ -3,7 +3,7 @@ Randomly generates a numbers game based on the British TV show "Countdown".
 Then solves the game using brute force search with memoization
 
 Sample output:
-
+```
 Number of large numbers selected: 3
 Numbers selected: [ 25  50 100   9   4   2]
 Target number: 358
@@ -19,3 +19,4 @@ Search time: 0.038 seconds
 Cached values: 9249
 Cache hits: 27886
 25 * 9 → called 76 times
+```
