@@ -9,8 +9,15 @@ from typing import Optional
 """
 Brute-force solver for the Countdown numbers game.
 
-Given a set of numbers and a target, this script tries to reach the target using arithmetic operations.
+Given a set of numbers and a target, this script tries to reach the target using arithmetic operations (+, -, *, /).
 It uses recursion and memoization to efficiently search for solutions and keeps track of the closest result found.
+
+Algorithm stops once any solution is found, the search is exhausted, or the maximum number of calls is reached.
+If no exact solution is found, it returns the closest number achieved and the sequence of operations.
+
+Output includes:
+- The sequence of operations leading to the solution or closest result
+- Search statistics: number of operation calls, cache size, cache hits, and most frequent operation
 """
 
 # Supported operations
@@ -27,7 +34,10 @@ cache_hit_counter = Counter()
 
 def print_node_sequence(node_seq):
     """
-    Pretty prints the sequence of operations.
+    Pretty prints the sequence of operations performed to reach the target or closest result.
+
+    Parameters:
+        node_seq (list): List of operation tuples (nums, oper) in the order performed.
     """
     for idx, op in enumerate(node_seq):
         nums, oper = op
@@ -36,13 +46,16 @@ def print_node_sequence(node_seq):
 
 def countdown_solver(numbers: list, target: int):
     """
-    Attempts to solve the Countdown numbers game.
+    Attempts to solve the Countdown numbers game for a given set of numbers and target.
 
     Parameters:
         numbers (list): List of available numbers.
         target (int): The target number to reach.
 
-    Prints the solution or the closest result found, and the total number of recursive calls.
+    Prints:
+        - The solution or the closest result found
+        - The sequence of operations
+        - Search statistics (operation calls, cache size, cache hits, most frequent operation)
     """
     # Check trivial solution
     if target in numbers:
@@ -75,17 +88,19 @@ def countdown_solver(numbers: list, target: int):
 
 def countdown_search(nums: list, target: int, nodes_seq: list, closest: int, flag: bool = False):
     """
-    Recursively searches for a solution to reach the target number using the given numbers.
+    Recursively searches for a solution to the Countdown numbers game.
 
     Parameters:
-        nums (list): Current list of numbers.
+        nums (list): Current list of numbers available for operations.
         target (int): Target number to reach.
         nodes_seq (list): Sequence of operations performed so far.
         closest (int): Closest number to the target found so far.
-        flag (bool): Indicates if an exact solution was found.
+        flag (bool): Indicates if an exact solution was found (used for recursion).
 
     Returns:
         tuple: (best_node, found_flag)
+            best_node (dict): Dictionary with keys 'operation', 'result', 'sequence'.
+            found_flag (bool): True if exact solution found, False otherwise.
     """
 
     closest_node = {'operation': None, 'result': closest, 'sequence': nodes_seq}
@@ -141,9 +156,12 @@ def operate_node(operation) -> Optional[int]:
 
     Parameters:
         operation (tuple): ((num1, num2), op) where op is a string key for the operation.
+            num1, num2 (int): Operands
+            op (str): Operation symbol ('+', '-', '*', '/')
 
     Returns:
         int or None: Result if valid (positive integer), otherwise None.
+            Only returns positive integer results (no negatives, zero, or fractions).
     """
 
     pair, op = operation
