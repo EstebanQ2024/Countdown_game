@@ -1,6 +1,6 @@
 Randomly generates a numbers game based on the British TV show "Countdown".
 
-Then solves the game using brute force search (using recursion with memoization).
+Then solves the game using brute force search (recursion with memoization).
 
 Sample output:
 ```
@@ -16,7 +16,7 @@ Step 4: 179 * 2 = 358
 
 Operation calls: 37135
 Search time: 0.038 seconds
-Cached values: 9249
+Cached operations: 9249
 Cache hits: 27886
 25 * 9 → called 76 times
 ```
