@@ -1,4 +1,4 @@
-Generates a numbers game based on the British TV show "Countdown".
+Randomly generates a numbers game based on the British TV show "Countdown".
 
 Then solves the game using brute force search with memoization
 
