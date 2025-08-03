@@ -5,7 +5,7 @@ Then solves the game using brute force search (recursion with memoization).
 Sample output:
 ```
 Number of large numbers selected: 3
-Numbers selected: [ 25  50 100   9   4   2]
+Numbers drawn: [ 25  50 100   9   4   2]
 Target number: 358
 
 Solution found, with operations:
