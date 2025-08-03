@@ -1,4 +1,5 @@
 Randomly generates a numbers game based on the British TV show "Countdown".
+https://youtu.be/piQ3q1n0ma8?si=PV_yiNjxev98vywe
 
 Then solves the game using brute force search (using recursion with memoization).
 
