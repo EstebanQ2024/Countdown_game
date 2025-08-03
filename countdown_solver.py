@@ -1,7 +1,9 @@
+
 import operator
 from functools import lru_cache
 import time
 from collections import Counter
+from typing import Optional
 
 
 """
@@ -58,10 +60,10 @@ def countdown_solver(numbers: list, target: int):
 
     if flag:
         print(f"\nSolution found, with operations:")
-        print_node_sequence(node[2])
+        print_node_sequence(node['sequence'])
     else:
-        print(f"\nClosest number found: {node[1]} with operations:")
-        print_node_sequence(node[2])
+        print(f"\nClosest number found: {node['result']} with operations:")
+        print_node_sequence(node['sequence'])
     print(f"\nOperation calls: {operation_counter}")
     print(f"Search time: {elapsed:.3f} seconds")
     print(f"Cached operations: {operate_node.cache_info().currsize}")
@@ -85,7 +87,7 @@ def countdown_search(nums: list, target: int, nodes_seq: list, closest: int, fla
         tuple: (best_node, found_flag)
     """
 
-    closest_node = (None, closest, nodes_seq)
+    closest_node = {'operation': None, 'result': closest, 'sequence': nodes_seq}
 
     for i in range(len(nums)):
         for j in range(i + 1, len(nums)):
@@ -105,30 +107,34 @@ def countdown_search(nums: list, target: int, nodes_seq: list, closest: int, fla
                 cache_hit_counter[operation] += 1
 
                 if result is not None:
-                    node = (operation, result, nodes_seq + [operation])
+                    node = {
+                        'operation': operation,
+                        'result': result,
+                        'sequence': nodes_seq + [operation]
+                    }
                     new_nums = [nums[k] for k in range(len(nums)) if k not in (i, j)] + [result]
                     new_nums = sorted(new_nums, reverse=True)
 
                     if result == target:
                         return node, True
 
-                    elif abs(result - target) < abs(closest_node[1] - target):
+                    elif abs(result - target) < abs(closest_node['result'] - target):
                         closest_node = node
 
                     rec_node, rec_flag = countdown_search(
-                        new_nums, target, node[2], closest_node[1], flag=flag
+                        new_nums, target, node['sequence'], closest_node['result'], flag=flag
                     )
 
                     if rec_flag:
                         return rec_node, True
 
-                    elif rec_node and abs(rec_node[1] - target) < abs(closest_node[1] - target):
+                    elif rec_node and abs(rec_node['result'] - target) < abs(closest_node['result'] - target):
                         closest_node = rec_node
 
     return closest_node, False
 
 @lru_cache(maxsize=None)
-def operate_node(operation) -> int | None:
+def operate_node(operation) -> Optional[int]:
     """
     Executes an arithmetic operation on a pair of numbers.
 
