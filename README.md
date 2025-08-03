@@ -1,5 +1,4 @@
 Randomly generates a numbers game based on the British TV show "Countdown".
-https://youtu.be/piQ3q1n0ma8?si=PV_yiNjxev98vywe
 
 Then solves the game using brute force search (using recursion with memoization).
 
@@ -21,3 +20,5 @@ Cached values: 9249
 Cache hits: 27886
 25 * 9 → called 76 times
 ```
+TV show sample clip: 
+https://youtu.be/piQ3q1n0ma8?si=PV_yiNjxev98vywe
