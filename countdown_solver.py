@@ -30,8 +30,9 @@ def print_node_sequence(node_seq):
     Pretty prints the sequence of operations.
     """
     for idx, op in enumerate(node_seq):
-        (nums, oper) = op
-        print(f"Step {idx+1}: {nums[0]} {oper} {nums[1]} = {ops[oper](nums[0], nums[1])}")
+        nums, oper = op
+        result = ops[oper](nums[0], nums[1])
+        print(f"Step {idx+1}: {int(nums[0])} {oper} {int(nums[1])} = {int(result)}")
 
 def countdown_solver(numbers: list, target: int):
     """
