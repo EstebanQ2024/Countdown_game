@@ -70,7 +70,7 @@ def countdown_solver(numbers: list, target: int):
         nums, operator_symbol = op
         print(f"{nums[0]} {operator_symbol} {nums[1]} → called {count} times")
 
-def countdown_search(nums: list, target: int, nodes_seq: list, closest: int, calls: int = 0, flag: bool = False):
+def countdown_search(nums: list, target: int, nodes_seq: list, closest: int, flag: bool = False):
     """
     Recursively searches for a solution to reach the target number using the given numbers.
 
@@ -116,7 +116,7 @@ def countdown_search(nums: list, target: int, nodes_seq: list, closest: int, cal
                         closest_node = node
 
                     rec_node, rec_flag = countdown_search(
-                        new_nums, target, node[2], closest_node[1], flag
+                        new_nums, target, node[2], closest_node[1], flag=flag
                     )
 
                     if rec_flag:
