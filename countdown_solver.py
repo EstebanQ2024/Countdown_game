@@ -126,15 +126,18 @@ def countdown_search(nums: list, target: int, nodes_seq: list, closest_node, fla
                         'result': result,
                         'sequence': nodes_seq + [operation]
                     }
-                    new_nums = [nums[k] for k in range(len(nums)) if k not in (i, j)] + [result]
-                    new_nums = sorted(new_nums, reverse=True)
-
                     if result == target:
                         return node, True
 
                     elif abs(result - target) < abs(closest_node['result'] - target):
                         closest_node = node
 
+                    # Create new numbers list excluding the used pair and including the result
+                    new_nums = [nums[k] for k in range(len(nums)) if k not in (i, j)] + [result]
+                    new_nums = sorted(new_nums, reverse=True)
+
+                    # Recursive call to search with the new numbers from this node
+                    # Pass the closest node to keep track of the best found solution
                     rec_node, rec_flag = countdown_search(
                         new_nums, target, node['sequence'], closest_node, flag=flag
                     )
