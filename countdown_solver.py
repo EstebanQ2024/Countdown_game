@@ -65,11 +65,13 @@ def countdown_solver(numbers: list, target: int):
 
     nodes_seq: list = []
     closest: int = min(numbers, key=lambda x: abs(x - target))
+    closest_node = {'operation': None, 'result': closest, 'sequence': nodes_seq}
+
 
     numbers = sorted(numbers, reverse=True)  # Sort numbers in descending order
 
     start_time = time.time()
-    node, flag = countdown_search(numbers, target, nodes_seq, closest)
+    node, flag = countdown_search(numbers, target, nodes_seq, closest_node)
     elapsed = time.time() - start_time
 
     if flag:
@@ -86,7 +88,7 @@ def countdown_solver(numbers: list, target: int):
         nums, operator_symbol = op
         print(f"{nums[0]} {operator_symbol} {nums[1]} → called {count} times")
 
-def countdown_search(nums: list, target: int, nodes_seq: list, closest: int, flag: bool = False):
+def countdown_search(nums: list, target: int, nodes_seq: list, closest_node, flag: bool = False):
     """
     Recursively searches for a solution to the Countdown numbers game.
 
@@ -102,9 +104,6 @@ def countdown_search(nums: list, target: int, nodes_seq: list, closest: int, fla
             best_node (dict): Dictionary with keys 'operation', 'result', 'sequence'.
             found_flag (bool): True if exact solution found, False otherwise.
     """
-
-    closest_node = {'operation': None, 'result': closest, 'sequence': nodes_seq}
-
     for i in range(len(nums)):
         for j in range(i + 1, len(nums)):
             pair = (nums[i], nums[j])
@@ -114,7 +113,6 @@ def countdown_search(nums: list, target: int, nodes_seq: list, closest: int, fla
                 if operation_counter > MAX_CALLS:  # Limit the number of recursive calls
                     return closest_node, False
                 operation_counter += 1
-
                 
                 operation = (pair, op)
                 result = operate_node(operation)
@@ -138,7 +136,7 @@ def countdown_search(nums: list, target: int, nodes_seq: list, closest: int, fla
                         closest_node = node
 
                     rec_node, rec_flag = countdown_search(
-                        new_nums, target, node['sequence'], closest_node['result'], flag=flag
+                        new_nums, target, node['sequence'], closest_node, flag=flag
                     )
 
                     if rec_flag:
